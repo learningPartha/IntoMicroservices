@@ -16,14 +16,13 @@ public class RatingsDataResource {
 
     @RequestMapping("/{movieId}")
     public Rating getRating(@PathVariable("movieId") String movieId) {
-        return new Rating(movieId, 9);
+        return new Rating(movieId, 4);
     }
     
     @RequestMapping("users/{userId}")
     public UserRating getUserRating(@PathVariable("userId") String userId) {
-    	List<Rating> ratings = Arrays.asList(new Rating("rowl", 5), new Rating("tolk", 9));
     	UserRating userRating = new UserRating();
-    	userRating.setUserRatings(ratings);
+    	userRating.initData(userId);
     	return userRating;
     }
 }
