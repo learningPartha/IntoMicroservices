@@ -16,8 +16,13 @@ public class MovieInfo {
 	@Autowired
 	private RestTemplate restTemplate;
 
-	@HystrixCommand(fallbackMethod = "getFallbackCatalogItem", 
-		commandProperties = {
+	@HystrixCommand(fallbackMethod = "getFallbackCatalogItem",
+		threadPoolKey = "movieInfoPool",
+		threadPoolProperties = {// bulk head pattern to compartmentalize thread pool for each service
+		    @HystrixProperty(name="coreSize",value="20"),
+		    @HystrixProperty(name="maxQueueSize",value="10")
+		},
+		commandProperties = {//circuit breaker parameters
 			@HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "2000"),
 			@HystrixProperty(name = "circuitBreaker.requestVolumeThreshold", value = "5"),
 			@HystrixProperty(name = "circuitBreaker.errorThresholdPercentage", value = "50"),
