@@ -1,0 +1,30 @@
+#db:
+#  connection: '{connectionString:''http://_'',username:''user'',password:''pwd''}'
+#  host: 127.0.0.1
+#  port: 1200
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://localhost:8084/eureka/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+movieRating:
+  value: 4
+  list: 1,2,3
+server:
+  port: 8083
+
+#spring application name is mapped to corresponding yml with same name in spring cloud config
+spring:
+  application:
+    name: rating-data-service
+  #profiles:
+  #  active: test
+  cloud:
+    config:
+      uri: http://localhost:8888
